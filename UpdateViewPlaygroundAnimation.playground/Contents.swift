@@ -17,30 +17,24 @@ currentPage.liveView = label
 
 func giveUserIntroductionPoints(points pointsToGoUp: Point) {
     
-    UIView.animateWithDuration(0.22) {
-        
-        let currentPoints = points
-        let futurePoints = points + pointsToGoUp
-        
-        UIView.setAnimationRepeatCount(Float(pointsToGoUp))
-        
-        label.alpha = 0.90
-        
-        for var i in currentPoints ... futurePoints {
-            label.text = "Points: \(i)"
-            print("i \(i)")
-            i += 1
-            
-        }
-        
-        points = futurePoints
-        
-    }
+    let futurePoints = points + pointsToGoUp
     
+    points = futurePoints
+    
+    UIView.animateWithDuration(0.33, animations: { 
+        label.alpha = 0
+        }) { (Bool) in
+            label.text = "Points: \(points)"
+            UIView.animateWithDuration(0.33, animations: { 
+                label.alpha = 1
+            })
+    }
+        
 }
 
 giveUserIntroductionPoints(points: 10)
 giveUserIntroductionPoints(points: 30)
+giveUserIntroductionPoints(points: 50)
 
 currentPage.needsIndefiniteExecution = true
 
